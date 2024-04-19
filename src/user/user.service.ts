@@ -30,8 +30,10 @@ export class UserService {
     return this.userRepository.findOne({ where: { phone } })
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const user = await this.userRepository.findOneBy({ id });
+    const updatedUser = this.userRepository.merge(user, updateUserDto);
+    return this.userRepository.save(updatedUser);
   }
 
 }

@@ -19,11 +19,15 @@ export class ProductService {
   }
 
   findAll() {
-    return `This action returns all product`;
+    return this.productRepository.find({
+      relations: ['category']
+    })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  findOne(category_id: string) {
+    return this.productRepository.find({
+      where: {category_id}
+    })
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {

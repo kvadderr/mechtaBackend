@@ -1,1 +1,5 @@
-export class CreateStockDto {}
+export class CreateStockDto {
+	lat: number
+	laq: string
+  name: string
+}
