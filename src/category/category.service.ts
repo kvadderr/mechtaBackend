@@ -19,7 +19,7 @@ export class CategoryService {
   }
 
   async findAll() {
-    const categories = await this.categoryRepository.find()
+    const categories = await this.categoryRepository.find({relations: ['products']})
     const categoryTree = this.buildCategoryTree(categories);
     return categoryTree
   }
