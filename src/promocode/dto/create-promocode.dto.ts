@@ -1,1 +1,5 @@
-export class CreatePromocodeDto {}
+export class CreatePromocodeDto {
+  code: string
+  discount: number
+  count: number
+}

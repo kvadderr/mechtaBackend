@@ -1,19 +1,32 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePromocodeDto } from './dto/create-promocode.dto';
 import { UpdatePromocodeDto } from './dto/update-promocode.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Promocode } from './entities/promocode.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PromocodeService {
+
+  constructor(
+    @InjectRepository(Promocode)
+    private readonly promocodeRepository: Repository<Promocode>,
+  ) { }
+
   create(createPromocodeDto: CreatePromocodeDto) {
-    return 'This action adds a new promocode';
+    return this.promocodeRepository.save(createPromocodeDto)
   }
 
   findAll() {
     return `This action returns all promocode`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} promocode`;
+  async findOne(code: string) {
+    const promocode = await this.promocodeRepository.findOne({ where: { code } });
+    if (!promocode) {
+      throw new NotFoundException();
+    }
+    return promocode
   }
 
   update(id: number, updatePromocodeDto: UpdatePromocodeDto) {

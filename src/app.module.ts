@@ -16,6 +16,9 @@ import { PromocodeModule } from './promocode/promocode.module';
 import { User } from './user/entities/user.entity';
 import { Category } from './category/entities/category.entity';
 import { Product } from './product/entities/product.entity';
+import { Promocode } from './promocode/entities/promocode.entity';
+import { Order } from './order/entities/order.entity';
+import { OrderProduct } from './order/entities/orderProduct.entity';
 
 @Module({
   imports: [
@@ -32,7 +35,10 @@ import { Product } from './product/entities/product.entity';
       entities: [
         User,
         Category,
-        Product
+        Product,
+        Promocode,
+        Order,
+        OrderProduct
       ],
       database: 'mechta',
       synchronize: true,
@@ -44,7 +50,7 @@ import { Product } from './product/entities/product.entity';
     ProductModule,
     OrderModule,
     AddressModule,
-    PromocodeModule
+    PromocodeModule,
   ],
   controllers: [],
   providers: [],

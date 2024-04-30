@@ -26,7 +26,7 @@ export class ProductService {
 
   findOne(category_id: string) {
     return this.productRepository.find({
-      where: {category_id}
+      where: { category_id }
     })
   }
 

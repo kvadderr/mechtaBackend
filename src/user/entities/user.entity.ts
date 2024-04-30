@@ -2,9 +2,11 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  Index
+  Index,
+  OneToMany
 } from 'typeorm';
 import { UserRole } from 'src/constants';
+import { Order } from 'src/order/entities/order.entity';
 
 @Entity('user')
 export class User {
@@ -25,7 +27,10 @@ export class User {
   @Column({ nullable: true })
 	telegram: string
 
-  @Column({ default: 0 })
+  @Column({ default: 200 })
 	bonus: number
+
+  @OneToMany(() => Order, orders => orders.user_id)
+  orders: Order[];
 
 }

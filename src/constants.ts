@@ -4,6 +4,13 @@ enum UserRole {
   USER = 'user'
 }
 
+enum OrderStatus {
+  WAITING = 'awaiting-confirmation',
+  SUCCESS = 'fulfilled',
+  CANCELED = 'cancelled'
+}
+
 export {
   UserRole,
+  OrderStatus
 }

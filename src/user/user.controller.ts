@@ -15,7 +15,6 @@ export class UserController {
 
   @Get('/me')
   async getMe(@Req() req): Promise<User> {
-    console.log('mee')
     try {
       return req.user;
     } catch (error) {

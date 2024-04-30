@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { PromocodeService } from './promocode.service';
 import { CreatePromocodeDto } from './dto/create-promocode.dto';
 import { UpdatePromocodeDto } from './dto/update-promocode.dto';
@@ -12,14 +12,14 @@ export class PromocodeController {
     return this.promocodeService.create(createPromocodeDto);
   }
 
-  @Get()
+  @Get('/all')
   findAll() {
     return this.promocodeService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.promocodeService.findOne(+id);
+  @Get()
+  findOne(@Query('code') code: string) {
+    return this.promocodeService.findOne(code);
   }
 
   @Patch(':id')
