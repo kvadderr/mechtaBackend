@@ -4,28 +4,26 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  OneToMany
+  OneToMany,
 } from 'typeorm';
 
 @Entity('category')
 export class Category {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-	@PrimaryGeneratedColumn('uuid')
-	id: string
+  @Column()
+  name: string;
 
-	@Column()
-	name: string
+  @Column({ nullable: true })
+  parent_id: number;
 
-  @Column({nullable: true})
-	parent_id: string
-
-  @ManyToOne(() => Category, category => category.children)
+  @ManyToOne(() => Category, (category) => category.children)
   parent: Category;
 
-  @OneToMany(() => Category, category => category.parent)
+  @OneToMany(() => Category, (category) => category.parent)
   children: Category[];
 
   @OneToMany(() => Product, (product) => product.category)
   products: Product[];
-
 }

@@ -8,38 +8,50 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class CategoryService {
-
   constructor(
     @InjectRepository(Category)
-    private readonly categoryRepository: Repository<Category>
-  ) { }
+    private readonly categoryRepository: Repository<Category>,
+  ) {}
 
   create(createCategoryDto: CreateCategoryDto) {
-    return this.categoryRepository.save(createCategoryDto)
+    return this.categoryRepository.save(createCategoryDto);
+  }
+
+  findOne(id: number) {
+    return this.categoryRepository.findOne({ where: { id } });
   }
 
   async findAll() {
-    const categories = await this.categoryRepository.find({relations: ['products']})
+    const categories = await this.categoryRepository.find({
+      relations: ['products'],
+    });
     const categoryTree = this.buildCategoryTree(categories);
-    return categoryTree
+    return categoryTree;
   }
 
-  async update(id: string, updateCategoryDto: UpdateCategoryDto) {
-    const category = await this.categoryRepository.findOneOrFail({ where: { id } });
-    return this.categoryRepository.save(category)
+  async update(id: number, updateCategoryDto: UpdateCategoryDto) {
+    const category = await this.categoryRepository.findOneOrFail({
+      where: { id },
+    });
+    return this.categoryRepository.save(category);
   }
 
-  async remove(id: string) {
-    const category = await this.categoryRepository.findOneOrFail({ where: { id } });
-    return this.categoryRepository.remove(category)
+  async remove(id: number) {
+    const category = await this.categoryRepository.findOneOrFail({
+      where: { id },
+    });
+    return this.categoryRepository.remove(category);
   }
 
-  buildCategoryTree(categories: Category[], parentId: string = null): Category[] {
+  buildCategoryTree(
+    categories: Category[],
+    parentId: number = null,
+  ): Category[] {
     return categories
-      .filter(category => category.parent_id === parentId)
-      .map(category => ({
+      .filter((category) => category.parent_id === parentId)
+      .map((category) => ({
         ...category,
-        children: this.buildCategoryTree(categories, category.id)
+        children: this.buildCategoryTree(categories, category.id),
       }));
   }
 }

@@ -8,26 +8,25 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
-
   constructor(
     @InjectRepository(Product)
-    private readonly productRepository: Repository<Product>
-  ) { }
+    private readonly productRepository: Repository<Product>,
+  ) {}
 
   create(createProductDto: CreateProductDto) {
-    return this.productRepository.save(createProductDto)
+    return this.productRepository.save(createProductDto);
   }
 
   findAll() {
     return this.productRepository.find({
-      relations: ['category']
-    })
+      relations: ['category'],
+    });
   }
 
-  findOne(category_id: string) {
+  findOne(category_id: number) {
     return this.productRepository.find({
-      where: { category_id }
-    })
+      where: { category_id },
+    });
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {

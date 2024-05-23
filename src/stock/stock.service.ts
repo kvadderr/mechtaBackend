@@ -8,18 +8,17 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class StockService {
-
   constructor(
     @InjectRepository(Stock)
-    private readonly stockRepository: Repository<Stock>
-  ) { }
+    private readonly stockRepository: Repository<Stock>,
+  ) {}
 
   create(createStockDto: CreateStockDto) {
-    return this.stockRepository.save(createStockDto)
+    return this.stockRepository.save(createStockDto);
   }
 
   findAll() {
-    return this.stockRepository.find()
+    return this.stockRepository.find();
   }
 
   findOne(id: number) {

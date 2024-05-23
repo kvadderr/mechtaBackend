@@ -1,4 +1,9 @@
-import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -12,13 +17,14 @@ import { OrderModule } from './order/order.module';
 import { AddressModule } from './address/address.module';
 import { PromocodeModule } from './promocode/promocode.module';
 
-
 import { User } from './user/entities/user.entity';
 import { Category } from './category/entities/category.entity';
 import { Product } from './product/entities/product.entity';
 import { Promocode } from './promocode/entities/promocode.entity';
 import { Order } from './order/entities/order.entity';
 import { OrderProduct } from './order/entities/orderProduct.entity';
+import { MainPageModule } from './mainPage/mainPage.module';
+import { Stock } from './stock/entities/stock.entity';
 
 @Module({
   imports: [
@@ -38,7 +44,8 @@ import { OrderProduct } from './order/entities/orderProduct.entity';
         Product,
         Promocode,
         Order,
-        OrderProduct
+        OrderProduct,
+        Stock,
       ],
       database: 'mechta',
       synchronize: true,
@@ -51,11 +58,11 @@ import { OrderProduct } from './order/entities/orderProduct.entity';
     OrderModule,
     AddressModule,
     PromocodeModule,
+    MainPageModule,
   ],
   controllers: [],
   providers: [],
 })
-
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer

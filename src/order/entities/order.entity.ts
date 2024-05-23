@@ -1,16 +1,24 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { OrderProduct } from './orderProduct.entity';
 import { User } from 'src/user/entities/user.entity';
 import { OrderStatus } from 'src/constants';
 
 @Entity()
 export class Order {
-
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ default: OrderStatus.WAITING })
-	status: OrderStatus
+  status: OrderStatus;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -18,7 +26,7 @@ export class Order {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   promocode: string;
 
   @Column({ default: 0 })
@@ -27,14 +35,13 @@ export class Order {
   @Column({ default: 0 })
   price: number;
 
-  @OneToMany(() => OrderProduct, orderProduct => orderProduct.order)
+  @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.order)
   orderProducts: OrderProduct[];
 
   @Column({ name: 'user_id' })
-	user_id: string
+  user_id: string;
 
-  @ManyToOne(() => User, user => user.orders)
+  @ManyToOne(() => User, (user) => user.orders)
   @JoinColumn({ name: 'user_id' })
   user: User;
-
 }
