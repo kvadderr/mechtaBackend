@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    origin: ['http://localhost:5173', 'http://localhost:3000', 'https://mechta.vercel.app'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
