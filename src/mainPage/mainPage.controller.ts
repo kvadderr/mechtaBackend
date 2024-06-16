@@ -32,12 +32,12 @@ export class MainPageController {
   }
 
   @Get('sliderImage')
-  findAll() {
-    return this.redisService.get('sliderImage');
+  async findAll() {
+    return await this.redisService.get('sliderImage');
   }
 
   @Get('categoryItems')
-  getCategoryItems() {
-    return this.redisService.get('categoryItems');
+  async getCategoryItems() {
+    return await this.redisService.get('categoryItems');
   }
 }
