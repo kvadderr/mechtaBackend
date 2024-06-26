@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { UpdateOrderDto } from './dto/update-order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Order } from './entities/order.entity';
@@ -30,6 +31,19 @@ export class OrderService {
       relations: ['orderProducts', 'orderProducts.product'],
       where: { id: savedOrder.id },
     });
+  }
+
+  async update(id:string, updateOrderDto: UpdateOrderDto){
+    const order = await this.orderRepository.findOne({
+      where: {id}
+    });
+    if (!order) {
+      throw new NotFoundException(`Order with ID ${id} not found`);
+    }
+
+    Object.assign(order, updateOrderDto); // Обновляем поля
+
+    return this.orderRepository.save(order); // Сохраняем обновленную запись
   }
 
   findAll() {
