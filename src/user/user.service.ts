@@ -32,8 +32,8 @@ export class UserService {
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.findOneBy({ id });
-    const updatedUser = this.userRepository.merge(user, updateUserDto);
-    return this.userRepository.save(updatedUser);
+    Object.assign(user, updateUserDto); 
+    return this.userRepository.save(user);
   }
 
 }
