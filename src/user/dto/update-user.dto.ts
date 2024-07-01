@@ -3,4 +3,5 @@ export class UpdateUserDto {
   email?: string
 	telegram?: string
 	bonus?: number
+  name?: string;
 }

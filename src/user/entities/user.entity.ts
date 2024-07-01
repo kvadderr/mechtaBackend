@@ -27,6 +27,9 @@ export class User {
   @Column({ nullable: true })
 	telegram: string
 
+  @Column({ nullable: true })
+	name: string
+
   @Column({ default: 200 })
 	bonus: number
 
