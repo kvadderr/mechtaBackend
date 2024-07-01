@@ -33,6 +33,7 @@ export class UserService {
   async update(id: string, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.findOneBy({ id });
     Object.assign(user, updateUserDto); 
+    console.log(user)
     return this.userRepository.save(user);
   }
 
